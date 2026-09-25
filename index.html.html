@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPI PJOK Kelas 12 - Permainan Bola Basket | SMAN 1 Parongpong</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        court: {
+                            wood: '#d97706',
+                            line: '#ffffff',
+                            orange: '#f97316'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-bounce-subtle {
+            animation: bounce-subtle 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <!-- HEADER BAR -->
+    <header class="bg-brand-900 text-white sticky top-0 z-50 shadow-lg border-b border-brand-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-brand-600 flex items-center justify-center font-bold text-xl text-amber-400 border border-brand-400 shadow-inner">
+                    <i class="fa-solid font-bold text-amber-400 fa-basketball"></i>
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold leading-tight tracking-wide">MPI PJOK - BOLA BASKET</h1>
+                    <p class="text-xs text-brand-200">Fase F / Kelas 12 • SMAN 1 Parongpong</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:block text-right border-r border-brand-700 pr-4">
+                    <div class="text-xs text-brand-300">Pengembang Media:</div>
+                    <div class="text-sm font-semibold text-white">Suheri, S.Pd</div>
+                </div>
+                <button id="soundToggle" onclick="toggleAudio()" class="p-2.5 rounded-full bg-brand-800 hover:bg-brand-700 text-brand-100 transition shadow border border-brand-600 flex items-center space-x-2 text-xs">
+                    <i id="soundIcon" class="fa-solid fa-volume-high text-amber-400"></i>
+                    <span class="hidden sm:inline">Efek Suara</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- PROGRESS TRACKER BAR -->
+        <div class="bg-brand-950 px-4 py-2 border-t border-brand-800/60">
+            <div class="max-w-7xl mx-auto flex justify-between items-center text-xs">
+                <div class="flex space-x-2 sm:space-x-6 w-full justify-around sm:justify-start">
+                    <button id="tabNav1" onclick="switchTab(1)" class="tab-btn font-semibold text-amber-400 border-b-2 border-amber-400 pb-0.5 transition flex items-center space-x-1.5">
+                        <span class="w-5 h-5 rounded-full bg-amber-400 text-brand-950 text-[10px] flex items-center justify-center font-bold">1</span>
+                        <span>Pengantar & Eksplorasi</span>
+                    </button>
+                    <button id="tabNav2" onclick="switchTab(2)" class="tab-btn font-semibold text-slate-400 hover:text-slate-200 pb-0.5 transition flex items-center space-x-1.5">
+                        <span class="w-5 h-5 rounded-full bg-slate-700 text-slate-300 text-[10px] flex items-center justify-center font-bold">2</span>
+                        <span>Pendalaman & Praktik</span>
+                    </button>
+                    <button id="tabNav3" onclick="switchTab(3)" class="tab-btn font-semibold text-slate-400 hover:text-slate-200 pb-0.5 transition flex items-center space-x-1.5">
+                        <span class="w-5 h-5 rounded-full bg-slate-700 text-slate-300 text-[10px] flex items-center justify-center font-bold">3</span>
+                        <span>Evaluasi & Refleksi</span>
+                    </button>
+                </div>
+                <div class="hidden lg:flex items-center space-x-2 text-brand-300 text-xs">
+                    <i class="fa-solid fa-brain text-amber-400"></i>
+                    <span>Pendekatan Deep Learning</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ========================================== -->
+        <!-- TAHAP 1: PENGANTAR & EKSPLORASI AWAL -->
+        <!-- ========================================== -->
+        <section id="section1" class="space-y-6">
+            <!-- Hero Card Context -->
+            <div class="bg-gradient-to-r from-brand-900 via-brand-800 to-brand-950 text-white rounded-2xl p-6 sm:p-8 shadow-xl border border-brand-700 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+                    <i class="fa-solid fa-basketball text-[240px] text-white"></i>
+                </div>
+                <div class="relative z-10 max-w-3xl space-y-4">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-700/60 border border-brand-500/50 text-amber-300 text-xs font-medium">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>PJOK SMA Kelas 12 • Fase F</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
+                        Menguasai Keterampilan & Peraturan Bermain Bola Basket
+                    </h2>
+                    <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                        Selamat datang! Pembelajaran ini dirancang berbasis <span class="text-amber-300 font-semibold">Deep Learning</span> untuk memberikan pemahaman bermakna (Meaningful), menyenangkan (Joyful), serta melatih berpikir kritis dalam mengambil keputusan taktis di lapangan permainan bola basket yang sesungguhnya.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+                        <div class="flex items-start space-x-2 bg-brand-800/80 p-3 rounded-lg border border-brand-600">
+                            <i class="fa-solid fa-bullseye text-amber-400 text-lg mt-0.5"></i>
+                            <div>
+                                <strong class="block text-white font-semibold">Tujuan Pembelajaran (TP):</strong>
+                                <span class="text-slate-300">Mempraktikkan teknik dasar bola basket dan bermain sesuai peraturan permainan yang sesungguhnya.</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-2 bg-brand-800/80 p-3 rounded-lg border border-brand-600">
+                            <i class="fa-solid fa-user-tie text-amber-400 text-lg mt-0.5"></i>
+                            <div>
+                                <strong class="block text-white font-semibold">Guru Pengembang:</strong>
+                                <span class="text-slate-300">Suheri, S.Pd (SMAN 1 Parongpong)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interaksi Eksplorasi Awal -->
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-5">
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
+                    <div class="w-9 h-9 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800">Eksplorasi Awal: Pemikiran Kritis Taktis</h3>
+                        <p class="text-xs text-slate-500">Memicu kesadaran taktis sebelum mempelajari teknik detail.</p>
+                    </div>
+                </div>
+
+                <!-- Scenario box -->
+                <div class="bg-slate-50 border-l-4 border-brand-600 p-4 rounded-r-xl space-y-2">
+                    <p class="text-sm text-slate-700 leading-relaxed font-medium">
+                        <strong class="text-brand-800"><i class="fa-solid fa-clipboard-question mr-1"></i> Studi Kasus Awal:</strong> Tim sekolahmu sedang tertinggal 1 poin dengan sisa waktu pertandingan 5 detik. Tim kamu menguasai bola di area pertahanan sendiri. Lawan menerapkan pertahanan ketat (*Full Court Press*).
+                    </p>
+                    <p class="text-xs text-slate-600">
+                        Pertanyaan Kritis: Manakah kombinasi keputusan awal yang paling logis dan efisien untuk membuka peluang mencetak angka sebelum *buzzer* berbunyi?
+                    </p>
+                </div>
+
+                <!-- Action choices -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <button onclick="handleEksplorasiAwal(1)" class="exp-btn text-left p-4 rounded-xl border border-slate-200 hover:border-brand-500 hover:bg-brand-50/50 transition duration-200 flex flex-col justify-between group">
+                        <div>
+                            <span class="inline-block px-2 py-0.5 rounded text-[11px] font-bold bg-slate-200 group-hover:bg-brand-600 group-hover:text-white transition">Pilihan A</span>
+                            <p class="text-xs font-semibold text-slate-800 mt-2">Dribble bola sendirian secepatnya melintasi seluruh lapangan menerobos pertahanan ketat lawan.</p>
+                        </div>
+                        <div class="mt-3 text-right">
+                            <span class="text-xs font-bold text-brand-600 group-hover:underline">Pilih Ini <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </button>
+
+                    <button onclick="handleEksplorasiAwal(2)" class="exp-btn text-left p-4 rounded-xl border border-slate-200 hover:border-brand-500 hover:bg-brand-50/50 transition duration-200 flex flex-col justify-between group">
+                        <div>
+                            <span class="inline-block px-2 py-0.5 rounded text-[11px] font-bold bg-slate-200 group-hover:bg-brand-600 group-hover:text-white transition">Pilihan B</span>
+                            <p class="text-xs font-semibold text-slate-800 mt-2">Lakukan operan jarak jauh (*Outlet/Overhead Pass*) cepat ke teman yang berlari ke area bebas lawan, dilanjutkan Lay-up.</p>
+                        </div>
+                        <div class="mt-3 text-right">
+                            <span class="text-xs font-bold text-brand-600 group-hover:underline">Pilih Ini <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </button>
+
+                    <button onclick="handleEksplorasiAwal(3)" class="exp-btn text-left p-4 rounded-xl border border-slate-200 hover:border-brand-500 hover:bg-brand-50/50 transition duration-200 flex flex-col justify-between group">
+                        <div>
+                            <span class="inline-block px-2 py-0.5 rounded text-[11px] font-bold bg-slate-200 group-hover:bg-brand-600 group-hover:text-white transition">Pilihan C</span>
+                            <p class="text-xs font-semibold text-slate-800 mt-2">Pegang bola erat-erat sambil melakukan pivot hingga waktu 5 detik habis untuk meminta Time-Out.</p>
+                        </div>
+                        <div class="mt-3 text-right">
+                            <span class="text-xs font-bold text-brand-600 group-hover:underline">Pilih Ini <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Feedback Display area -->
+                <div id="eksplorasiFeedback" class="hidden p-4 rounded-xl transition duration-300 border">
+                    <!-- Populated dynamically by JS -->
+                </div>
+
+                <div class="flex justify-end pt-2">
+                    <button onclick="switchTab(2)" class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md transition flex items-center space-x-2">
+                        <span>Lanjut ke Tahap 2: Pendalaman Materi</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAHAP 2: PENDALAMAN MATERI BERTAHAP & INTERAKSI WAJIB -->
+        <!-- ========================================== -->
+        <section id="section2" class="hidden space-y-8">
+            <!-- Navigation Sub-Tabs -->
+            <div class="flex border-b border-slate-200 space-x-4 bg-white p-2 rounded-xl shadow-sm">
+                <button id="subtab1Btn" onclick="switchSubTab(1)" class="subtab-btn px-4 py-2 text-sm font-bold text-brand-600 border-b-2 border-brand-600 transition">
+                    1. Teknik Dasar Fundamental
+                </button>
+                <button id="subtab2Btn" onclick="switchSubTab(2)" class="subtab-btn px-4 py-2 text-sm font-bold text-slate-500 hover:text-slate-800 transition">
+                    2. Peraturan Resmi FIBA
+                </button>
+                <button id="subtab3Btn" onclick="switchSubTab(3)" class="subtab-btn px-4 py-2 text-sm font-bold text-slate-500 hover:text-slate-800 transition">
+                    3. Interaksi Taktis Wajib (3 Jenis)
+                </button>
+            </div>
+
+            <!-- SUBTAB 1: TEKNIK DASAR -->
+            <div id="subtab1" class="space-y-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                    <h3 class="text-xl font-bold text-brand-900 border-b pb-2 flex items-center">
+                        <i class="fa-solid fa-basketball-hoop mr-2 text-amber-500"></i>
+                        Teknik Dasar Permainan Bola Basket (Fase F)
+                    </h3>
+                    <p class="text-slate-600 text-sm">
+                        Di Kelas 12, penguasaan teknik dasar bukan sekadar gerakan fisik, melainkan efisiensi biomekanika dan koordinasi taktis.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
+                        <!-- Card 1: Dribbling -->
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition">
+                            <div class="w-10 h-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center font-bold mb-3">
+                                <i class="fa-solid fa-person-running text-lg"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-800 text-base">1. Menggiring (Dribbling)</h4>
+                            <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                                Memantulkan bola ke lantai menggunakan jari-jari tangan (bukan memukul).
+                            </p>
+                            <ul class="text-xs text-slate-700 mt-2 space-y-1 list-disc list-inside bg-white p-2.5 rounded-lg border">
+                                <li><strong>Low Dribble:</strong> Melindungi bola dari pengeroyokan lawan.</li>
+                                <li><strong>High Dribble:</strong> Penetrasi cepat saat fast break.</li>
+                                <li><strong>Crossover:</strong> Mengubah arah dribble mendadak.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Card 2: Passing -->
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition">
+                            <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold mb-3">
+                                <i class="fa-solid fa-arrows-split-up-and-left text-lg"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-800 text-base">2. Mengoper (Passing)</h4>
+                            <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                                Memindahkan bola antar rekan tim secara akurat.
+                            </p>
+                            <ul class="text-xs text-slate-700 mt-2 space-y-1 list-disc list-inside bg-white p-2.5 rounded-lg border">
+                                <li><strong>Chest Pass:</strong> Operan dada akurat jarak dekat-menengah.</li>
+                                <li><strong>Bounce Pass:</strong> Operan pantul untuk menerobos defense ketat.</li>
+                                <li><strong>Overhead Pass:</strong> Operan tinggi melampaui jangkauan lawan.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Card 3: Shooting -->
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 hover:shadow-md transition">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold mb-3">
+                                <i class="fa-solid fa-bullseye text-lg"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-800 text-base">3. Menembak (Shooting)</h4>
+                            <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                                Teknik mencetak angka (*points*) ke dalam ring basket lawan.
+                            </p>
+                            <ul class="text-xs text-slate-700 mt-2 space-y-1 list-disc list-inside bg-white p-2.5 rounded-lg border">
+                                <li><strong>Set Shot:</strong> Tembakan bebas (Free throw).</li>
+                                <li><strong>Jump Shot:</strong> Tembakan melompat tinggi.</li>
+                                <li><strong>Lay-Up Shot:</strong> Tembakan melayang diawali 2 langkah.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBTAB 2: PERATURAN FIBA -->
+            <div id="subtab2" class="hidden space-y-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                    <h3 class="text-xl font-bold text-brand-900 border-b pb-2 flex items-center">
+                        <i class="fa-solid fa-scale-balanced mr-2 text-brand-600"></i>
+                        Peraturan Resmi Pertandingan (Standar FIBA)
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-brand-50 p-4 rounded-xl border border-brand-200 space-y-2">
+                            <h4 class="font-bold text-brand-900 text-sm flex items-center">
+                                <i class="fa-solid fa-clock mr-1.5 text-brand-600"></i> Durasi & Pemain
+                            </h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc list-inside">
+                                <li><strong>Pemain:</strong> 5 pemain utama di lapangan & 7 pemain cadangan per tim.</li>
+                                <li><strong>Waktu Permainan:</strong> 4 x 10 menit (Standar FIBA bersih).</li>
+                                <li><strong>Overtime:</strong> Extra time 5 menit jika skor imbang di akhir Kuarter 4.</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 space-y-2">
+                            <h4 class="font-bold text-amber-900 text-sm flex items-center">
+                                <i class="fa-solid fa-triangle-exclamation mr-1.5 text-amber-600"></i> Pelanggaran Waktu (Rule Violations)
+                            </h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc list-inside">
+                                <li><strong>3 Detik:</strong> Pemain penyerang berada di *restricted area* lawan >3 detik.</li>
+                                <li><strong>5 Detik:</strong> Menguasai bola saat inbound/dijaga ketat tanpa mengoper/dribble.</li>
+                                <li><strong>8 Detik:</strong> Gagal membawa bola dari area pertahanan ke area penyerangan.</li>
+                                <li><strong>24 Detik:</strong> Batas maksimum tim melakukan serangan hingga bola menyentuh ring.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBTAB 3: INTERAKSI WAJIB (3 JENIS INTERAKSI DEEP LEARNING) -->
+            <div id="subtab3" class="space-y-8">
+
+                <!-- INTERAKSI WAJIB 1: MENGURUTKAN LANGKAH (SEQUENCE INTERACTION) -->
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-brand-200 space-y-5">
+                    <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
+                        <span class="w-8 h-8 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-sm">1</span>
+                        <div>
+                            <h3 class="text-base font-bold text-brand-900">INTERAKSI 1: Mengurutkan Langkah Biomekanika Lay-Up Shot</h3>
+                            <p class="text-xs text-slate-500">Bentuk Interaksi: Mengurutkan tahapan gerakan dari awal hingga *release* bola.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-50 p-3 rounded-lg border border-brand-200 text-xs text-brand-900">
+                        <strong><i class="fa-solid fa-hand-pointer mr-1"></i> Instruksi:</strong> Klik tombol langkah di bawah sesuai urutan kronologis yang benar (1 sampai 4) untuk melakukan *Lay-Up Right Side* (Lay-up kanan) yang sempurna.
+                    </div>
+
+                    <!-- Options Pool -->
+                    <div id="seqPool" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <button id="stepA" onclick="selectSequence('A', 'Lompat dengan tumpuan kaki kiri & angkat lutut kanan, dorong bola lembut ke papan pantul.')" class="seq-btn p-3 bg-slate-50 hover:bg-brand-100 border border-slate-200 rounded-xl text-xs font-medium text-left transition">
+                            <span class="font-bold text-slate-500 mr-1">[A]</span> Lompat dengan tumpuan kaki kiri & angkat lutut kanan, dorong bola lembut ke papan pantul.
+                        </button>
+                        <button id="stepB" onclick="selectSequence('B', 'Menangkap bola sambil melangkah dengan kaki kanan saat mendribble mendekati ring.')" class="seq-btn p-3 bg-slate-50 hover:bg-brand-100 border border-slate-200 rounded-xl text-xs font-medium text-left transition">
+                            <span class="font-bold text-slate-500 mr-1">[B]</span> Menangkap bola sambil melangkah dengan kaki kanan saat mendribble mendekati ring.
+                        </button>
+                        <button id="stepC" onclick="selectSequence('C', 'Mendarat dengan dua kaki secara seimbang (soft landing).')" class="seq-btn p-3 bg-slate-50 hover:bg-brand-100 border border-slate-200 rounded-xl text-xs font-medium text-left transition">
+                            <span class="font-bold text-slate-500 mr-1">[C]</span> Mendarat dengan dua kaki secara seimbang (soft landing).
+                        </button>
+                        <button id="stepD" onclick="selectSequence('D', 'Melanjutkan langkah kedua menggunakan kaki kiri menuju arah basket.')" class="seq-btn p-3 bg-slate-50 hover:bg-brand-100 border border-slate-200 rounded-xl text-xs font-medium text-left transition">
+                            <span class="font-bold text-slate-500 mr-1">[D]</span> Melanjutkan langkah kedua menggunakan kaki kiri menuju arah basket.
+                        </button>
+                    </div>
+
+                    <!-- Sequence User Selection Track -->
+                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200">
+                        <div class="text-xs font-bold text-slate-700 mb-2 flex justify-between items-center">
+                            <span>Urutan Pilihanmu:</span>
+                            <button onclick="resetSequence()" class="text-red-500 hover:text-red-700 text-[11px] underline">Reset Urutan</button>
+                        </div>
+                        <div id="seqDisplay" class="flex flex-wrap gap-2 text-xs">
+                            <span class="text-slate-400 italic">Belum ada langkah dipilih...</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <button onclick="checkSequenceResult()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow">
+                            Periksa Jawaban Urutan
+                        </button>
+                    </div>
+
+                    <!-- Direct Feedback & Conceptual Explanation Box -->
+                    <div id="seqFeedback" class="hidden p-4 rounded-xl border text-xs leading-relaxed"></div>
+                </div>
+
+
+                <!-- INTERAKSI WAJIB 2: MENJODOHKAN (MATCHING PAIRS) -->
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-brand-200 space-y-5">
+                    <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
+                        <span class="w-8 h-8 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-sm">2</span>
+                        <div>
+                            <h3 class="text-base font-bold text-brand-900">INTERAKSI 2: Menjodohkan Situasi Pelanggaran & Hukuman Wasit</h3>
+                            <p class="text-xs text-slate-500">Bentuk Interaksi: Menjodohkan pasangan situasi (*Offense/Defense*) dengan pasal aturan FIBA yang tepat.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-50 p-3 rounded-lg border border-brand-200 text-xs text-brand-900">
+                        <strong><i class="fa-solid fa-link mr-1"></i> Instruksi:</strong> Pilih situasi di Kolom A, lalu klik pasangan keputusan wasit yang benar di Kolom B!
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Left Column: Situations -->
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-xs text-slate-700 uppercase tracking-wider">Kolom A: Situasi di Lapangan</h4>
+                            <div id="matchSit1" onclick="selectMatchPair('sit', 1)" class="match-item p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer text-xs hover:border-brand-500 transition">
+                                <strong>Situasi 1:</strong> Pemain melangkah lebih dari 2 langkah tanpa memantulkan bola saat mendribble.
+                            </div>
+                            <div id="matchSit2" onclick="selectMatchPair('sit', 2)" class="match-item p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer text-xs hover:border-brand-500 transition">
+                                <strong>Situasi 2:</strong> Pemain memegang bola dengan kedua tangan setelah mendribble, lalu mendribble kembali.
+                            </div>
+                            <div id="matchSit3" onclick="selectMatchPair('sit', 3)" class="match-item p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer text-xs hover:border-brand-500 transition">
+                                <strong>Situasi 3:</strong> Bertahan menabrak dada penyerang yang sudah berada dalam posisi menembak (shooting motion).
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Consequences -->
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-xs text-slate-700 uppercase tracking-wider">Kolom B: Keputusan & Hukuman Wasit</h4>
+                            <div id="matchAnsB" onclick="selectMatchPair('ans', 'B')" class="match-item p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer text-xs hover:border-brand-500 transition">
+                                <strong>Keputusan B:</strong> *Double Dribble Violation* (Pindah penguasaan bola / Inbound samping lawan).
+                            </div>
+                            <div id="matchAnsC" onclick="selectMatchPair('ans', 'C')" class="match-item p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer text-xs hover:border-brand-500 transition">
+                                <strong>Keputusan C:</strong> *Shooting Foul / Personal Foul* (Diberikan 2 atau 3 kali Free Throw).
+                            </div>
+                            <div id="matchAnsA" onclick="selectMatchPair('ans', 'A')" class="match-item p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer text-xs hover:border-brand-500 transition">
+                                <strong>Keputusan A:</strong> *Traveling Violation* (Pindah bola untuk lemparan ke dalam tim lawan).
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Direct Feedback Display -->
+                    <div id="matchFeedback" class="hidden p-4 rounded-xl border text-xs leading-relaxed"></div>
+                </div>
+
+
+                <!-- INTERAKSI WAJIB 3: BENAR / SALAH DEEP LEARNING ANALYSIS -->
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-brand-200 space-y-5">
+                    <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
+                        <span class="w-8 h-8 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-sm">3</span>
+                        <div>
+                            <h3 class="text-base font-bold text-brand-900">INTERAKSI 3: Analisis Kebenaran Konsep Taktik & Aturan</h3>
+                            <p class="text-xs text-slate-500">Bentuk Interaksi: Menentukan Benar/Salah terhadap narasi pernyataan taktis.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-50 p-3 rounded-lg border border-brand-200 text-xs text-brand-900">
+                        <strong><i class="fa-solid fa-circle-question mr-1"></i> Pernyataan Analisis:</strong>
+                        <p class="mt-1 text-slate-800 font-medium">
+                            "Saat tim sedang melancarkan skema *Fast Break* (serangan balik cepat), mengoper bola menggunakan teknik *Bounce Pass* (operan pantul) selalu lebih direkomendasikan dibandingkan *Chest Pass* atau *Overhead Pass* untuk menjangkau rekan yang berada jauh di depan."
+                        </p>
+                    </div>
+
+                    <div class="flex space-x-4">
+                        <button onclick="handleTrueFalse(true)" class="flex-1 py-3 px-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-sm transition text-center shadow-sm">
+                            <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> PERNYATAAN BENAR
+                        </button>
+                        <button onclick="handleTrueFalse(false)" class="flex-1 py-3 px-4 rounded-xl border-2 border-rose-500 bg-rose-50 hover:bg-rose-100 text-rose-800 font-bold text-sm transition text-center shadow-sm">
+                            <i class="fa-solid fa-circle-xmark text-rose-600 mr-1"></i> PERNYATAAN SALAH
+                        </button>
+                    </div>
+
+                    <!-- Direct Feedback Display -->
+                    <div id="tfFeedback" class="hidden p-4 rounded-xl border text-xs leading-relaxed"></div>
+                </div>
+
+            </div>
+
+            <div class="flex justify-between pt-4">
+                <button onclick="switchTab(1)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 text-sm font-semibold px-5 py-2.5 rounded-xl transition flex items-center space-x-2">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Kembali ke Tahap 1</span>
+                </button>
+                <button onclick="switchTab(3)" class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md transition flex items-center space-x-2">
+                    <span>Lanjut ke Tahap 3: Evaluasi & Refleksi</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAHAP 3: EVALUASI KONSEP & REFLEKSI DEEP LEARNING -->
+        <!-- ========================================== -->
+        <section id="section3" class="hidden space-y-6">
+            <!-- Title banner -->
+            <div class="bg-gradient-to-r from-brand-800 to-brand-900 text-white p-6 rounded-2xl shadow-lg border border-brand-700 flex justify-between items-center flex-wrap gap-4">
+                <div>
+                    <h2 class="text-xl font-bold flex items-center">
+                        <i class="fa-solid fa-award text-amber-400 mr-2 text-2xl"></i>
+                        Tahap 3: Evaluasi Konsep & Refleksi Mandiri
+                    </h2>
+                    <p class="text-xs text-brand-200 mt-1">Uji pemahaman komprehensif dan refleksi kesadaran diri (*Mindful Learning*).</p>
+                </div>
+                <div class="bg-brand-950/80 px-4 py-2 rounded-xl border border-brand-700 text-center">
+                    <span class="text-[10px] text-brand-300 uppercase font-bold block">Skor Evaluasi Kamu</span>
+                    <span id="finalScoreDisplay" class="text-2xl font-black text-amber-400">0 / 100</span>
+                </div>
+            </div>
+
+            <!-- STUDI KASUS APLIKASI KONSEP (SIMULASI WASIT & PELATIH) -->
+            <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
+                <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                        <i class="fa-solid fa-clipboard-check text-brand-600 mr-2"></i>
+                        Studi Kasus Aplikasi Konsep (5 Soal Penalaran)
+                    </h3>
+                    <span class="text-xs bg-brand-100 text-brand-800 px-2.5 py-1 rounded-full font-semibold">Tipe HOTS / Deep Learning</span>
+                </div>
+
+                <!-- Quiz Container -->
+                <div id="quizContainer" class="space-y-6">
+                    <!-- Dynamic Question items generated via JS or hardcoded cleanly -->
+                </div>
+
+                <div class="pt-4 border-t flex justify-end">
+                    <button onclick="calculateFinalScore()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold px-6 py-3 rounded-xl shadow-lg transition flex items-center space-x-2">
+                        <i class="fa-solid fa-calculator"></i>
+                        <span>Hitung Skor Evaluasi Akhir</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- REFLEKSI DEEP LEARNING (MINDFUL CHECKLIST) -->
+            <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-2xl shadow-sm border border-amber-200 space-y-4">
+                <h3 class="text-lg font-bold text-amber-900 flex items-center">
+                    <i class="fa-solid fa-heart-pulse text-amber-600 mr-2"></i>
+                    Refleksi Diri (Mindful & Meaningful Learning)
+                </h3>
+                <p class="text-xs text-amber-800">
+                    Berikan tanda centang pada item refleksi yang sesuai dengan pengalaman belajarmu hari ini:
+                </p>
+
+                <div class="space-y-2 text-xs text-amber-900">
+                    <label class="flex items-start space-x-2.5 bg-white/80 p-3 rounded-xl border border-amber-200/60 cursor-pointer hover:bg-white transition">
+                        <input type="checkbox" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500" onchange="updateReflectionProgress()">
+                        <span>Saya memahami perbedaan mendasar antara pelanggaran (*Violation*) dan kesalahan (*Foul*) serta dampaknya pada tim.</span>
+                    </label>
+                    <label class="flex items-start space-x-2.5 bg-white/80 p-3 rounded-xl border border-amber-200/60 cursor-pointer hover:bg-white transition">
+                        <input type="checkbox" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500" onchange="updateReflectionProgress()">
+                        <span>Saya mampu menganalisis tahapan biomekanika melangkah pada teknik *Lay-Up Shot* secara sistematis.</span>
+                    </label>
+                    <label class="flex items-start space-x-2.5 bg-white/80 p-3 rounded-xl border border-amber-200/60 cursor-pointer hover:bg-white transition">
+                        <input type="checkbox" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500" onchange="updateReflectionProgress()">
+                        <span>Saya siap menerapkan sikap sportif, menghargai keputusan wasit, dan berkolaborasi saat melakukan praktik game sesungguhnya di lapangan.</span>
+                    </label>
+                </div>
+
+                <div id="reflectionSummary" class="hidden p-4 bg-emerald-100 border border-emerald-300 text-emerald-900 rounded-xl text-xs font-semibold">
+                    <i class="fa-solid fa-circle-check text-emerald-600 mr-1.5"></i>
+                    Luar biasa! Kamu telah menyelesaikan seluruh rangkaian refleksi *Deep Learning*. Pertahankan semangat belajar dan junjung tinggi sportivitas di lapangan!
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-950 text-brand-300 border-t border-brand-800 py-6 mt-12 text-center text-xs">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-semibold text-white">Media Pembelajaran Interaktif (MPI) - PJOK Permainan Bola Basket</p>
+            <p>Dikembangkan oleh: <strong class="text-amber-400">Suheri, S.Pd</strong> | SMAN 1 Parongpong • Fase F / Kelas 12</p>
+            <p class="text-brand-400 text-[11px]">Dirancang khusus berbasis Pendekatan Deep Learning (Mindful, Meaningful, & Joyful Learning)</p>
+        </div>
+    </footer>
+
+    <script>
+        // Audio Synth Context using Web Audio API for interactive sounds
+        let audioEnabled = true;
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(type) {
+            if (!audioEnabled) return;
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.05);
+                } else if (type === 'correct') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime); // A3
+                    osc.frequency.setValueAtTime(180, audioCtx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'whistle') {
+                    // Referee whistle sound simulation
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(2500, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.4);
+                }
+            } catch (e) {
+                console.log("Audio play error", e);
+            }
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const icon = document.getElementById('soundIcon');
+            if (audioEnabled) {
+                icon.className = 'fa-solid fa-volume-high text-amber-400';
+                playSound('click');
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-slate-400';
+            }
+        }
+
+        // TAB NAVIGATION
+        function switchTab(tabIndex) {
+            playSound('click');
+            [1, 2, 3].forEach(i => {
+                document.getElementById(`section${i}`).classList.add('hidden');
+                const btn = document.getElementById(`tabNav${i}`);
+                btn.className = "tab-btn font-semibold text-slate-400 hover:text-slate-200 pb-0.5 transition flex items-center space-x-1.5";
+                btn.querySelector('span:first-child').className = "w-5 h-5 rounded-full bg-slate-700 text-slate-300 text-[10px] flex items-center justify-center font-bold";
+            });
+
+            document.getElementById(`section${tabIndex}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tabNav${tabIndex}`);
+            activeBtn.className = "tab-btn font-semibold text-amber-400 border-b-2 border-amber-400 pb-0.5 transition flex items-center space-x-1.5";
+            activeBtn.querySelector('span:first-child').className = "w-5 h-5 rounded-full bg-amber-400 text-brand-950 text-[10px] flex items-center justify-center font-bold";
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchSubTab(subIndex) {
+            playSound('click');
+            [1, 2, 3].forEach(i => {
+                document.getElementById(`subtab${i}`).classList.add('hidden');
+                const btn = document.getElementById(`subtab${i}Btn`);
+                btn.className = "subtab-btn px-4 py-2 text-sm font-bold text-slate-500 hover:text-slate-800 transition";
+            });
+            document.getElementById(`subtab${subIndex}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`subtab${subIndex}Btn`);
+            activeBtn.className = "subtab-btn px-4 py-2 text-sm font-bold text-brand-600 border-b-2 border-brand-600 transition";
+        }
+
+        // ========================================================
+        // TAHAP 1: EKSPLORASI AWAL HANDLER
+        // ========================================================
+        function handleEksplorasiAwal(option) {
+            const fb = document.getElementById('eksplorasiFeedback');
+            fb.classList.remove('hidden');
+
+            if (option === 2) {
+                playSound('correct');
+                fb.className = "p-4 rounded-xl transition duration-300 border bg-emerald-50 border-emerald-300 text-emerald-900";
+                fb.innerHTML = `
+                    <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-circle-check text-emerald-600 text-lg mt-0.5"></i>
+                        <div>
+                            <strong class="text-sm font-bold block">Umpan Balik Tepat! (Pilihan B)</strong>
+                            <p class="text-xs mt-1"><strong>Alasan Konseptual & Taktis:</strong> Dalam sisa waktu 5 detik dan tekanan *full court press*, melakukan operan lambung/jauh (*Outlet Pass*) langsung melewati garis pertahanan lawan adalah keputusan paling efektif untuk menghemat durasi waktu (hanya memakan waktu 1.5 - 2 detik) serta menciptakan situasi *1-on-1* atau *uncontested lay-up* di area ring lawan.</p>
+                        </div>
+                    </div>
+                `;
+            } else if (option === 1) {
+                playSound('wrong');
+                fb.className = "p-4 rounded-xl transition duration-300 border bg-amber-50 border-amber-300 text-amber-900";
+                fb.innerHTML = `
+                    <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-600 text-lg mt-0.5"></i>
+                        <div>
+                            <strong class="text-sm font-bold block">Kurang Tepat (Pilihan A)</strong>
+                            <p class="text-xs mt-1"><strong>Alasan Konseptual:</strong> Dribble memakan waktu relatif lama (sekitar 4-5 detik untuk menyeberang lapangan) dan berisiko sangat tinggi terkena *trapping* atau kehilangan bola saat berhadapan dengan pertahanan *Full Court Press* lawan.</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                playSound('wrong');
+                fb.className = "p-4 rounded-xl transition duration-300 border bg-rose-50 border-rose-300 text-rose-900";
+                fb.innerHTML = `
+                    <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-circle-xmark text-rose-600 text-lg mt-0.5"></i>
+                        <div>
+                            <strong class="text-sm font-bold block">Kurang Efektif (Pilihan C)</strong>
+                            <p class="text-xs mt-1"><strong>Alasan Konseptual:</strong> Berdiam diri dan melakukan pivot saat waktu berjalan 5 detik tanpa upaya mengalirkan bola maju hanya akan menghabiskan sisa waktu pertandingan (*game over*) tanpa sempat mencetak angka.</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // ========================================================
+        // TAHAP 2 - INTERAKSI 1: MENGURUTKAN LAY-UP
+        // ========================================================
+        let userSequence = [];
+        const correctSequence = ['B', 'D', 'A', 'C'];
+
+        function selectSequence(code, label) {
+            if (userSequence.includes(code)) return;
+            playSound('click');
+            userSequence.push(code);
+            document.getElementById(`step${code}`).classList.add('opacity-40', 'pointer-events-none');
+            renderSequenceDisplay();
+        }
+
+        function resetSequence() {
+            playSound('click');
+            userSequence = [];
+            ['A', 'B', 'C', 'D'].forEach(c => {
+                document.getElementById(`step${c}`).classList.remove('opacity-40', 'pointer-events-none');
+            });
+            renderSequenceDisplay();
+            document.getElementById('seqFeedback').classList.add('hidden');
+        }
+
+        function renderSequenceDisplay() {
+            const display = document.getElementById('seqDisplay');
+            if (userSequence.length === 0) {
+                display.innerHTML = `<span class="text-slate-400 italic">Belum ada langkah dipilih...</span>`;
+                return;
+            }
+            display.innerHTML = userSequence.map((code, index) => `
+                <span class="bg-brand-600 text-white font-bold px-2.5 py-1 rounded-lg flex items-center space-x-1">
+                    <span class="bg-brand-800 text-amber-300 text-[10px] w-4 h-4 rounded-full flex items-center justify-center">${index + 1}</span>
+                    <span>Langkah [${code}]</span>
+                </span>
+            `).join('');
+        }
+
+        function checkSequenceResult() {
+            const fb = document.getElementById('seqFeedback');
+            fb.classList.remove('hidden');
+
+            if (userSequence.length < 4) {
+                playSound('wrong');
+                fb.className = "p-4 rounded-xl border bg-amber-50 border-amber-300 text-amber-900";
+                fb.innerHTML = `<strong><i class="fa-solid fa-circle-exclamation"></i> Instruksi:</strong> Harap pilih keempat tahapan langkah terlebih dahulu sebelum memeriksa!`;
+                return;
+            }
+
+            const isCorrect = JSON.stringify(userSequence) === JSON.stringify(correctSequence);
+
+            if (isCorrect) {
+                playSound('correct');
+                fb.className = "p-4 rounded-xl border bg-emerald-50 border-emerald-300 text-emerald-900";
+                fb.innerHTML = `
+                    <div class="space-y-1">
+                        <strong class="text-sm flex items-center text-emerald-800">
+                            <i class="fa-solid fa-circle-check mr-1.5 text-base text-emerald-600"></i> URUTAN BENAR TEPTA (B -> D -> A -> C)!
+                        </strong>
+                        <p><strong>a. Umpan Balik:</strong> Selamat! Anda berhasil menyusun kronologi biomekanika Lay-up kanan dengan sangat akurat.</p>
+                        <p><strong>b. Penjelasan Konseptual:</strong> Lay-up shot diawali memegang bola saat kaki kanan mendarat [B], dilanjutkan langkah dorong kaki kiri [D], lalu melompat setinggi-tingginya menolakkan kaki kiri serta melepas bola (*soft release*) [A], dan diakhiri mendarat seimbang (*soft landing*) untuk mencegah cedera [C].</p>
+                    </div>
+                `;
+            } else {
+                playSound('wrong');
+                fb.className = "p-4 rounded-xl border bg-rose-50 border-rose-300 text-rose-900";
+                fb.innerHTML = `
+                    <div class="space-y-1">
+                        <strong class="text-sm flex items-center text-rose-800">
+                            <i class="fa-solid fa-circle-xmark mr-1.5 text-base text-rose-600"></i> Urutan Masih Belum Tepat
+                        </strong>
+                        <p><strong>a. Umpan Balik:</strong> Urutan yang kamu pilih belum sesuai dengan rhythm ritme langkah lay-up shot resmi.</p>
+                        <p><strong>b. Penjelasan Konseptual:</strong> Urutan Lay-up yang ideal adalah: (1) Langkah Kanan [B] -> (2) Langkah Kiri [D] -> (3) Lompat & Release Bola [A] -> (4) Landing [C]. Silakan tekan 'Reset Urutan' dan coba kembali!</p>
+                    </div>
+                `;
+            }
+        }
+
+        // ========================================================
+        // TAHAP 2 - INTERAKSI 2: MENJODOHKAN VIOLATION
+        // ========================================================
+        let selectedSit = null;
+        let selectedAns = null;
+
+        function selectMatchPair(type, val) {
+            playSound('click');
+            if (type === 'sit') {
+                selectedSit = val;
+                [1, 2, 3].forEach(id => {
+                    document.getElementById(`matchSit${id}`).classList.remove('ring-2', 'ring-brand-500', 'bg-brand-100');
+                });
+                document.getElementById(`matchSit${val}`).classList.add('ring-2', 'ring-brand-500', 'bg-brand-100');
+            } else {
+                selectedAns = val;
+                ['A', 'B', 'C'].forEach(id => {
+                    document.getElementById(`matchAns${id}`).classList.remove('ring-2', 'ring-brand-500', 'bg-brand-100');
+                });
+                document.getElementById(`matchAns${val}`).classList.add('ring-2', 'ring-brand-500', 'bg-brand-100');
+            }
+
+            if (selectedSit && selectedAns) {
+                checkMatchPairing();
+            }
+        }
+
+        function checkMatchPairing() {
+            const fb = document.getElementById('matchFeedback');
+            fb.classList.remove('hidden');
+
+            const correctPairs = { 1: 'A', 2: 'B', 3: 'C' };
+
+            if (correctPairs[selectedSit] === selectedAns) {
+                playSound('correct');
+                fb.className = "p-4 rounded-xl border bg-emerald-50 border-emerald-300 text-emerald-900";
+                fb.innerHTML = `
+                    <strong class="text-sm flex items-center text-emerald-800">
+                        <i class="fa-solid fa-circle-check mr-1.5 text-emerald-600"></i> Pasangan Jodoh Benar!
+                    </strong>
+                    <p class="mt-1"><strong>Penjelasan Konseptual:</strong> ${getMatchExplanation(selectedSit)}</p>
+                `;
+            } else {
+                playSound('wrong');
+                fb.className = "p-4 rounded-xl border bg-rose-50 border-rose-300 text-rose-900";
+                fb.innerHTML = `
+                    <strong class="text-sm flex items-center text-rose-800">
+                        <i class="fa-solid fa-circle-xmark mr-1.5 text-rose-600"></i> Pasangan Belum Sesuai
+                    </strong>
+                    <p class="mt-1"><strong>Umpan Balik:</strong> Situasi ${selectedSit} tidak cocok dengan Keputusan ${selectedAns}. Perhatikan lagi definisi antara *Traveling*, *Double*, dan *Foul*.</p>
+                `;
+            }
+        }
+
+        function getMatchExplanation(sitId) {
+            if (sitId === 1) return "Melangkah lebih dari 2 langkah tanpa mendribble bola dikategorikan sebagai pelanggaran *Traveling Violation* (Pasal FIBA Violation). Hukuman: Pindah penguasaan bola.";
+            if (sitId === 2) return "Mendribble kembali setelah menghentikan dribble memegang bola adalah *Double Dribble Violation*. Hukuman: Throw-in lawan dari garis samping.";
+            if (sitId === 3) return "Kontak fisik melanggar hukum saat penyerang melakukan *shooting motion* dinamakan *Shooting Foul*. Hukuman: Hadiah Tembakan Bebas (*Free Throw*).";
+            return "";
+        }
+
+        // ========================================================
+        // TAHAP 2 - INTERAKSI 3: BENAR / SALAH
+        // ========================================================
+        function handleTrueFalse(userChoice) {
+            const fb = document.getElementById('tfFeedback');
+            fb.classList.remove('hidden');
+
+            // Correct answer is FALSE because Chest/Overhead pass are faster than Bounce pass in long distance Fast Break!
+            if (userChoice === false) {
+                playSound('correct');
+                fb.className = "p-4 rounded-xl border bg-emerald-50 border-emerald-300 text-emerald-900";
+                fb.innerHTML = `
+                    <strong class="text-sm flex items-center text-emerald-800">
+                        <i class="fa-solid fa-circle-check mr-1.5 text-emerald-600"></i> TEPAT SEKALI! Pernyataan Tersebut SALAH.
+                    </strong>
+                    <p class="mt-1"><strong>a. Umpan Balik:</strong> Analisis taktis Anda sangat tajam!</p>
+                    <p class="mt-1"><strong>b. Penjelasan Konseptual:</strong> Saat *Fast Break* jarak jauh, bola harus mengalir secepat mungkin di udara menggunakan *Overhead Pass* atau *Chest Pass* kuat. *Bounce Pass* memantul ke lantai sehingga memakan gesekan waktu yang melambatkan laju serangan balik, memberi kesempatan bagi bek lawan untuk kembali bertahan.</p>
+                `;
+            } else {
+                playSound('wrong');
+                fb.className = "p-4 rounded-xl border bg-rose-50 border-rose-300 text-rose-900";
+                fb.innerHTML = `
+                    <strong class="text-sm flex items-center text-rose-800">
+                        <i class="fa-solid fa-circle-xmark mr-1.5 text-rose-600"></i> KURANG TEPAT. Pernyataan Seharusnya SALAH.
+                    </strong>
+                    <p class="mt-1"><strong>a. Umpan Balik:</strong> Pilihan Anda kurang efisien dalam konteks kecepatan *Fast Break*.</p>
+                    <p class="mt-1"><strong>b. Penjelasan Konseptual:</strong> Pantulan *Bounce Pass* mengurangi laju kecepatan bola (*ball velocity*). Untuk serangan cepat jarak jauh, operan udara langsung (*Overhead/Baseball pass*) jauh lebih unggul dalam memanfaatkan momentum ruang kosong.</p>
+                `;
+            }
+        }
+
+        // ========================================================
+        // TAHAP 3: EVALUASI KONSEP (5 SOAL HOTS)
+        // ========================================================
+        const quizQuestions = [
+            {
+                id: 1,
+                question: "Pemain A mendribble bola melintasi garis tengah ke area penyerangan. Karena ditekan bek lawan, ia melangkah mundur oper bola kembali ke rekan di area pertahanan sendiri. Wasit meniup peluit. Pelanggaran apa yang terjadi?",
+                options: [
+                    "A. Traveling Violation",
+                    "B. Back Ball / Back Court Violation",
+                    "C. 8 Seconds Violation",
+                    "D. Personal Foul"
+                ],
+                correct: 1,
+                explanation: "Sesuai aturan FIBA, sekali bola sudah melewati garis tengah (*frontcourt*), bola tidak boleh dikembalikan lagi ke area pertahanan sendiri (*backcourt*)."
+            },
+            {
+                id: 2,
+                question: "Seorang penyerang berdiri diam di dalam Restricted Area (area bersyarat/keyhole) lawan selama 4 detik berturut-turut saat timnya menguasai bola. Hukuman yang tepat dari wasit adalah:",
+                options: [
+                    "A. Pelanggaran 3 Detik (3-Second Violation)",
+                    "B. Technical Foul",
+                    "C. Tembakan Bebas untuk lawan",
+                    "D. Tidak dianggap pelanggaran selama tidak memegang bola"
+                ],
+                correct: 0,
+                explanation: "Pemain penyerang dilarang berada di area bersyarat lawan lebih dari 3 detik secara terus menerus saat timnya memegang kontrol bola di area penyerangan."
+            },
+            {
+                id: 3,
+                question: "Mengapa teknik 'Chest Pass' paling efektif digunakan saat melakukan operan cepat jarak dekat hingga menengah antar sesama rekan tim?",
+                options: [
+                    "A. Karena melintasi udara tinggi sehingga sulit dijangkau lawan",
+                    "B. Karena gerakan lurus sejajar dada menghasilkan kecepatan, akurasi tinggi, dan mudah ditangkap",
+                    "C. Karena bola memantul ke tanah sehingga memutus pandangan lawan",
+                    "D. Karena hanya membutuhkan dorongan satu tangan"
+                ],
+                correct: 1,
+                explanation: "Chest pass memanfaatkan dorongan dua tangan sejajar dada dengan fiksasi pergelangan tangan, menghasilkan lintasan bola lurus, presisi, dan bertenaga tinggi."
+            },
+            {
+                id: 4,
+                question: "Seorang pemain telah melakukan 5 kali Personal Foul dalam satu pertandingan FIBA resmi. Apa konsekuensi resmi terhadap pemain tersebut?",
+                options: [
+                    "A. Tim kehilangan 5 poin",
+                    "B. Pemain terkena diskualifikasi (*Foul Out*) dan harus keluar dari lapangan pertandingan",
+                    "C. Pemain mendapatkan kartu kuning peringatan",
+                    "D. Pertandingan dihentikan sepenuhnya"
+                ],
+                correct: 1,
+                explanation: "Batas maksimal Personal Foul bagi seorang pemain dalam standar aturan FIBA adalah 5 kali. Jika mencapai 5 foul, pemain wajib digantikan (*foul out*)."
+            },
+            {
+                id: 5,
+                question: "Manakah perbedaan mendasar antara 'Lay-up Shot' dan 'Jump Shot' dalam aspek mekanika kaki?",
+                options: [
+                    "A. Lay-up diawali 2 langkah melayang menuju ring, sedangkan Jump Shot melompat tegak lurus dari posisi berdiri/berhenti",
+                    "B. Lay-up menggunakan dua tangan, Jump Shot menggunakan satu tangan",
+                    "C. Lay-up dilakukan dari luar garis 3 angka, Jump Shot dari dalam area bersyarat",
+                    "D. Tidak ada perbedaan mekanika kaki"
+                ],
+                correct: 0,
+                explanation: "Lay-up shot adalah tembakan melayang dengan awalan 2 langkah ritmis mendekati ring, sedangkan Jump Shot mengandalkan lonjakan vertikal dari tumpuan kuat saat berhenti."
+            }
+        ];
+
+        let quizUserAnswers = {};
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = quizQuestions.map((q, qIndex) => `
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                    <p class="text-xs sm:text-sm font-bold text-slate-800">
+                        <span class="text-brand-600">Soal ${qIndex + 1}:</span> ${q.question}
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        ${q.options.map((opt, optIndex) => `
+                            <button onclick="selectQuizAnswer(${q.id}, ${optIndex})" id="q_${q.id}_opt_${optIndex}" class="quiz-opt-btn p-3 rounded-lg border border-slate-200 bg-white hover:border-brand-500 hover:bg-brand-50 text-left transition font-medium text-slate-700">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="q_fb_${q.id}" class="hidden p-3 rounded-lg text-xs leading-relaxed"></div>
+                </div>
+            `).join('');
+        }
+
+        function selectQuizAnswer(questionId, optionIndex) {
+            playSound('click');
+            quizUserAnswers[questionId] = optionIndex;
+            
+            const q = quizQuestions.find(item => item.id === questionId);
+            q.options.forEach((_, idx) => {
+                const btn = document.getElementById(`q_${questionId}_opt_${idx}`);
+                btn.className = "quiz-opt-btn p-3 rounded-lg border border-slate-200 bg-white hover:border-brand-500 hover:bg-brand-50 text-left transition font-medium text-slate-700";
+            });
+
+            const selectedBtn = document.getElementById(`q_${questionId}_opt_${optionIndex}`);
+            selectedBtn.className = "quiz-opt-btn p-3 rounded-lg border-2 border-brand-600 bg-brand-100 text-brand-900 font-bold text-left transition";
+        }
+
+        function calculateFinalScore() {
+            playSound('whistle');
+            let totalCorrect = 0;
+
+            quizQuestions.forEach(q => {
+                const userAns = quizUserAnswers[q.id];
+                const fb = document.getElementById(`q_fb_${q.id}`);
+                fb.classList.remove('hidden');
+
+                if (userAns === q.correct) {
+                    totalCorrect++;
+                    fb.className = "p-3 rounded-lg text-xs border bg-emerald-50 border-emerald-300 text-emerald-900";
+                    fb.innerHTML = `<strong><i class="fa-solid fa-check-circle text-emerald-600"></i> Benar!</strong> ${q.explanation}`;
+                } else {
+                    fb.className = "p-3 rounded-lg text-xs border bg-rose-50 border-rose-300 text-rose-900";
+                    fb.innerHTML = `<strong><i class="fa-solid fa-times-circle text-rose-600"></i> Kurang Tepat.</strong> Jawaban benar: ${q.options[q.correct]}. ${q.explanation}`;
+                }
+            });
+
+            const finalScore = (totalCorrect / quizQuestions.length) * 100;
+            const scoreDisplay = document.getElementById('finalScoreDisplay');
+            scoreDisplay.innerText = `${finalScore} / 100`;
+
+            if (finalScore >= 80) {
+                scoreDisplay.className = "text-2xl font-black text-emerald-400";
+            } else {
+                scoreDisplay.className = "text-2xl font-black text-amber-400";
+            }
+        }
+
+        function updateReflectionProgress() {
+            playSound('click');
+            const checkboxes = document.querySelectorAll('#section3 input[type="checkbox"]');
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            const summary = document.getElementById('reflectionSummary');
+            
+            if (allChecked) {
+                summary.classList.remove('hidden');
+                playSound('correct');
+            } else {
+                summary.classList.add('hidden');
+            }
+        }
+
+        // INITIALIZATION ON PAGE LOAD
+        window.onload = function () {
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
